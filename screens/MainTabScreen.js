@@ -17,7 +17,7 @@ const DetailsStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
 
-const iconBackgroundColors = '#64dfdf';
+const iconBackgroundColors = '#009387';
 const iconColor = '#dee2e6';
 const MainTabScreen = () => (
   <Tab.Navigator initialRouteName="Home" activeColor="#fff">
@@ -26,7 +26,7 @@ const MainTabScreen = () => (
       component={HomeStackScreen}
       options={{
         tabBarLabel: 'Home',
-        tabBarColor: '#64dfdf',
+        tabBarColor: '#009387',
         tabBarIcon: ({color}) => (
           <Icon name="ios-home" color={color} size={26} />
         ),
@@ -37,7 +37,7 @@ const MainTabScreen = () => (
       component={DetailsStackScreen}
       options={{
         tabBarLabel: 'Updates',
-        tabBarColor: '#64dfdf',
+        tabBarColor: '#009387',
         tabBarIcon: ({color}) => (
           <Icon name="ios-notifications" color={color} size={26} />
         ),
@@ -48,7 +48,7 @@ const MainTabScreen = () => (
       component={ProfileScreen}
       options={{
         tabBarLabel: 'Profile',
-        tabBarColor: '#64dfdf',
+        tabBarColor: '#009387',
         tabBarIcon: ({color}) => (
           <Icon name="ios-person" color={color} size={26} />
         ),
@@ -59,9 +59,9 @@ const MainTabScreen = () => (
       component={ExploreScreen}
       options={{
         tabBarLabel: 'Explore',
-        tabBarColor: '#64dfdf',
+        tabBarColor: '#009387',
         tabBarIcon: ({color}) => (
-          <Icon name="ios-aperture" color={iconColor} size={26} />
+          <Icon name="ios-aperture" color={color} size={26} />
         ),
       }}
     />
@@ -74,9 +74,10 @@ const HomeStackScreen = ({navigation}) => (
   <HomeStack.Navigator
     screenOptions={{
       headerStyle: {
-        backgroundColor: '#64dfdf',
+        backgroundColor: '#009387',
       },
       headerTintColor: '#fff',
+
       headerTitleStyle: {
         fontWeight: 'bold',
       },
@@ -91,7 +92,8 @@ const HomeStackScreen = ({navigation}) => (
             name="ios-menu"
             size={25}
             backgroundColor={iconBackgroundColors}
-            onPress={() => navigation.openDrawer()}></Icon.Button>
+            onPress={() => navigation.openDrawer()}
+          />
         ),
       }}
     />
@@ -105,7 +107,8 @@ const HomeStackScreen = ({navigation}) => (
             name="ios-menu"
             size={25}
             backgroundColor={iconBackgroundColors}
-            onPress={() => navigation.openDrawer()}></Icon.Button>
+            onPress={() => navigation.openDrawer()}
+          />
         ),
       }}
     />
@@ -119,7 +122,8 @@ const HomeStackScreen = ({navigation}) => (
             name="ios-menu"
             size={25}
             backgroundColor={iconBackgroundColors}
-            onPress={() => navigation.openDrawer()}></Icon.Button>
+            onPress={() => navigation.openDrawer()}
+          />
         ),
       }}
     />
@@ -146,7 +150,8 @@ const DetailsStackScreen = ({navigation}) => (
             name="ios-menu"
             size={25}
             backgroundColor="#1f65ff"
-            onPress={() => navigation.openDrawer()}></Icon.Button>
+            onPress={() => navigation.openDrawer()}
+          />
         ),
       }}
     />
