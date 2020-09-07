@@ -26,7 +26,7 @@ const SignInScreen = ({navigation}) => {
     confirm_secureTextEntry: true,
   });
 
-  const textInputChange = (val) => {
+  const textInputChange = val => {
     if (val.length !== 0) {
       setData({
         ...data,
@@ -42,14 +42,16 @@ const SignInScreen = ({navigation}) => {
     }
   };
 
-  const handlePasswordChange = (val) => {
+  const handlePasswordChange = val => {
     setData({
       ...data,
       password: val,
     });
   };
 
-  const handleConfirmPasswordChange = (val) => {
+
+  const handleConfirmPasswordChange = val => {
+
     setData({
       ...data,
       confirm_password: val,
@@ -85,7 +87,7 @@ const SignInScreen = ({navigation}) => {
               placeholder="Your Username"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => textInputChange(val)}
+              onChangeText={val => textInputChange(val)}
             />
             {data.check_textInputChange ? (
               <Animatable.View animation="bounceIn">
@@ -110,7 +112,7 @@ const SignInScreen = ({navigation}) => {
               secureTextEntry={data.secureTextEntry ? true : false}
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => handlePasswordChange(val)}
+              onChangeText={val => handlePasswordChange(val)}
             />
             <TouchableOpacity onPress={updateSecureTextEntry}>
               {data.secureTextEntry ? (
@@ -137,7 +139,8 @@ const SignInScreen = ({navigation}) => {
               secureTextEntry={data.confirm_secureTextEntry ? true : false}
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => handleConfirmPasswordChange(val)}
+
+              onChangeText={val => handleConfirmPasswordChange(val)}
             />
             <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
               {data.secureTextEntry ? (
@@ -165,6 +168,7 @@ const SignInScreen = ({navigation}) => {
             <TouchableOpacity
               style={styles.signIn}
               onPress={() => navigation.navigate('PhoneVerificationScreen')}>
+
               <LinearGradient
                 colors={['#08d4c4', '#01ab9d']}
                 style={styles.signIn}>

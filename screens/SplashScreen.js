@@ -53,9 +53,9 @@ const SplashScreen = ({navigation}) => {
           ]}>
           Out of Cash need Money We got you covered!
         </Text>
-        <Text style={styles.text}>Sign in with account</Text>
+        <Text style={styles.text}>Get Started</Text>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Income')}>
             <LinearGradient
               colors={['#08d4c4', '#01ab9d']}
               style={styles.signIn}>

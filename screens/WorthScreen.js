@@ -14,10 +14,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useTheme} from 'react-native-paper';
 
 const Colors = {
-  greenButton: '#64dfdf',
+  greenButton: '#009387',
   redButtom: '#d62828',
   redButtomTransparent: '#f3722c',
-  background: '#64dfdf',
+  background: '#009387',
   footerColor: '#fff',
 };
 

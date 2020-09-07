@@ -18,7 +18,7 @@ import {useTheme} from 'react-native-paper';
 
 import Users from '../model/users';
 
-const SignInScreen = ({navigation}) => {
+const Income = ({navigation}) => {
   const [data, setData] = React.useState({
     username: '',
     password: '',
@@ -111,7 +111,7 @@ const SignInScreen = ({navigation}) => {
     <View style={styles.container}>
       <StatusBar backgroundColor="#009387" barStyle="light-content" />
       <View style={styles.header}>
-        <Text style={styles.text_header}>Welcome!</Text>
+        <Text style={styles.text_header}>Plaease Tell us your Income</Text>
       </View>
       <Animatable.View
         animation="fadeInUpBig"
@@ -128,7 +128,7 @@ const SignInScreen = ({navigation}) => {
               color: colors.text,
             },
           ]}>
-          Username
+          Income
         </Text>
         <View style={styles.action}>
           <FontAwesome name="user-o" color={colors.text} size={20} />
@@ -252,7 +252,7 @@ const SignInScreen = ({navigation}) => {
   );
 };
 
-export default SignInScreen;
+export default Income;
 
 const styles = StyleSheet.create({
   container: {
