@@ -40,13 +40,11 @@ const SubmitLoanScreen = ({navigation, submitLoan}) => {
 
   const validateName = val => {
     if (val.trim().length < 4) {
-      console.log('true');
       setData({
         ...data,
         isValidNames: false,
       });
     } else {
-      console.log('false');
       setData({
         ...data,
         isValidNames: true,

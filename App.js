@@ -40,10 +40,19 @@ const Drawer = createDrawerNavigator();
 const App = () => {
   // const [isLoading, setIsLoading] = React.useState(true);
   const [user, setUser] = React.useState(null);
+  const [isFirst, setIsFirst] = React.useState(false);
 
   useEffect(() => {
     getAuth();
-  });
+    getFirstTimeLogin();
+  }, [isFirst]);
+
+  const getFirstTimeLogin = async () => {
+    const result = await AsyncStorage.getItem('first_user');
+    if (result !== null) {
+      setIsFirst(result);
+    }
+  };
 
   const getAuth = async () => {
     const result = await AsyncStorage.getItem('USERS');
@@ -52,7 +61,8 @@ const App = () => {
     }
   };
 
-  console.log(user);
+  console.log('user', user);
+  console.log('first', isFirst);
 
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
@@ -85,14 +95,18 @@ const App = () => {
     <PaperProvider theme={theme}>
       <Provider store={store}>
         <NavigationContainer theme={theme}>
-          {/* <Drawer.Navigator
+          {user !== null ? (
+            <Drawer.Navigator
               drawerContent={props => <DrawerContent {...props} />}>
               <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
               <Drawer.Screen name="SupportScreen" component={SupportScreen} />
               <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
               <Drawer.Screen name="BookmarkScreen" component={BookmarkScreen} />
-            </Drawer.Navigator> */}
-          <RootStackScreen />
+            </Drawer.Navigator>
+          ) : (
+            <RootStackScreen />
+          )}
+          {/*  */}
         </NavigationContainer>
       </Provider>
     </PaperProvider>

@@ -1,5 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {
   useTheme,
   Avatar,
@@ -16,6 +18,11 @@ import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export function DrawerContent(props) {
+  const logout = async () => {
+    await AsyncStorage.removeItem('USERS');
+    await AsyncStorage.removeItem('first_user');
+    props.navigation.navigate('SignInScreen');
+  };
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
@@ -94,6 +101,15 @@ export function DrawerContent(props) {
               label="Support"
               onPress={() => {
                 props.navigation.navigate('SupportScreen');
+              }}
+            />
+            <DrawerItem
+              icon={({color, size}) => (
+                <Icon name="account-check-outline" color={color} size={size} />
+              )}
+              label="Logout"
+              onPress={() => {
+                logout();
               }}
             />
           </Drawer.Section>

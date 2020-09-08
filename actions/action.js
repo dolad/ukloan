@@ -12,6 +12,7 @@ export const getWorth = (val, navigation) => async dispatch => {
       .post('http://ukdion-loan-app.herokuapp.com/api/loan/worthy', data)
       .then(res => {
         console.log(res.data.amount);
+        AsyncStorage.setItem('income', res.data.amount);
         // dispatch({type: 'IS_LOADING'});
         dispatch({type: 'IS_INCOME', payload: res.data.amount});
         dispatch({type: 'IS_SUCCESS'});
@@ -28,8 +29,7 @@ export const submitLoan = (details, navigation) => async dispatch => {
       .post('http://ukdion-loan-app.herokuapp.com/api/auth/register', details)
       .then(res => {
         console.log(res.data);
-        // dispatch({type: 'IS_LOADING'});
-        dispatch({type: 'IS_INCOME', payload: res.data.amount});
+        AsyncStorage.setItem('first_user', 'No');
         dispatch({type: 'IS_SUCCESS'});
         navigation.navigate('PhoneVerificationScreen');
       });
@@ -38,17 +38,16 @@ export const submitLoan = (details, navigation) => async dispatch => {
   }
 };
 
-export const login = (details, navigation) => async dispatch => {
+export const login = details => async dispatch => {
   try {
     await axios
       .post('http://ukdion-loan-app.herokuapp.com/api/auth/login', details)
       .then(res => {
         console.log(res.data);
-        AsyncStorage.setItem('USERS', res.data.user);
+        AsyncStorage.setItem('USERS', JSON.stringify(res.data.user));
         // dispatch({type: 'IS_LOADING'});
         dispatch({type: 'AUTH_USER', payload: res.data.user});
         dispatch({type: 'IS_SUCCESS'});
-        navigation.navigate('Income');
       });
   } catch (error) {
     console.log(error.errors);

@@ -10,6 +10,8 @@ import DetailsScreen from './DetailsScreen';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
 import WorthScreen from './WorthScreen';
+import SignInScreen from './SignInScreen';
+
 import SubmitLoanScreen from './SubmitLoanScreen';
 
 const HomeStack = createStackNavigator();
@@ -115,6 +117,21 @@ const HomeStackScreen = ({navigation}) => (
     <HomeStack.Screen
       name="SubmitLoan"
       component={SubmitLoanScreen}
+      options={{
+        title: 'Worth',
+        headerLeft: () => (
+          <Icon.Button
+            name="ios-menu"
+            size={25}
+            backgroundColor={iconBackgroundColors}
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+      }}
+    />
+    <HomeStack.Screen
+      name="SignInScreen"
+      component={SignInScreen}
       options={{
         title: 'Worth',
         headerLeft: () => (
