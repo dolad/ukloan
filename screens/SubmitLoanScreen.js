@@ -15,10 +15,13 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import {submitLoan} from '../actions/action';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Feather from 'react-native-vector-icons/Feather';
 
-const SubmitLoanScreen = ({navigation}) => {
+const SubmitLoanScreen = ({navigation, submitLoan}) => {
   const [data, setData] = React.useState({
     username: '',
     password: '',
@@ -27,23 +30,106 @@ const SubmitLoanScreen = ({navigation}) => {
     email: '',
     phone_number: '',
     confirm_password: '',
-    check_textInputChange: false,
     secureTextEntry: true,
     confirm_secureTextEntry: true,
+    isValidNames: false,
+    isValidEmail: false,
+    isValidPassword: false,
+    isValidPhone: false,
   });
 
-  const textInputChange = val => {
-    if (val.length !== 0) {
+  const validateName = val => {
+    if (val.trim().length < 4) {
+      console.log('true');
       setData({
         ...data,
-        username: val,
-        check_textInputChange: true,
+        isValidNames: false,
+      });
+    } else {
+      console.log('false');
+      setData({
+        ...data,
+        isValidNames: true,
+      });
+    }
+  };
+
+  const validatePhone = val => {
+    const phoneno = /^\d{10}$/;
+    if (val.value.match(phoneno)) {
+      setData({
+        ...data,
+        isValidPhone: !isValidPhone,
       });
     } else {
       setData({
         ...data,
+        isValidPhone: false,
+      });
+    }
+  };
+
+  const validateEmail = val => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (re.test(String(email).toLowerCase()) === true) {
+      setData({
+        ...data,
+        isValidEmail: !isValidEmail,
+      });
+    } else {
+      setData({
+        ...data,
+        isValidEmail: false,
+      });
+    }
+  };
+
+  const textInputChange = val => {
+    if (val.length !== 0) {
+      validateName(val);
+      setData({
+        ...data,
         username: val,
-        check_textInputChange: false,
+      });
+    }
+  };
+
+  const firstnameChange = val => {
+    if (val.trim().length !== 0) {
+      validateName(val);
+      setData({
+        ...data,
+        first_name: val,
+      });
+    }
+  };
+
+  const lastNameChange = val => {
+    if (val.trim().length !== 0) {
+      validateName(val);
+      setData({
+        ...data,
+        last_name: val,
+      });
+    }
+  };
+
+  const emailChange = val => {
+    if (val.trim().length !== 0) {
+      // validateEmail(val);
+      setData({
+        ...data,
+        email: val,
+      });
+    }
+  };
+
+  const phoneChange = val => {
+    if (val.trim().lenght !== 0) {
+      // validatePhone(val);
+      setData({
+        ...data,
+        phone_number: val,
       });
     }
   };
@@ -52,34 +138,6 @@ const SubmitLoanScreen = ({navigation}) => {
     setData({
       ...data,
       password: val,
-    });
-  };
-
-  const handlefirstnameChange = val => {
-    setData({
-      ...data,
-      first_name: val,
-    });
-  };
-
-  const handlelastnameChange = val => {
-    setData({
-      ...data,
-      last_name: val,
-    });
-  };
-
-  const handleemailChange = val => {
-    setData({
-      ...data,
-      email: val,
-    });
-  };
-
-  const handlephoneChange = val => {
-    setData({
-      ...data,
-      phone_number: val,
     });
   };
 
@@ -102,6 +160,20 @@ const SubmitLoanScreen = ({navigation}) => {
       ...data,
       confirm_secureTextEntry: !data.confirm_secureTextEntry,
     });
+  };
+
+  const {last_name, first_name, email, password, phone_number, username} = data;
+  const submit = () => {
+    const details = {
+      last_name,
+      first_name,
+      email,
+      password,
+      phone_number,
+      username,
+    };
+    console.log(details);
+    submitLoan(details, navigation);
   };
 
   const InputText = (
@@ -133,12 +205,13 @@ const SubmitLoanScreen = ({navigation}) => {
           autoCapitalize="none"
           onChangeText={val => inputChange(val)}
         />
-        {data.check_textInputChange ? (
-          <Animatable.View animation="bounceIn">
-            <Feather name="check-circle" color="green" size={20} />
-          </Animatable.View>
-        ) : null}
       </View>
+      {/* {validate && (
+        <Text style={styles.errorMessage}>
+          {validationMessage}
+          {validate}
+        </Text>
+      )} */}
     </>
   );
 
@@ -170,6 +243,8 @@ const SubmitLoanScreen = ({navigation}) => {
           )}
         </TouchableOpacity>
       </View>
+
+      <Text style={styles.errorMessage}>Must be greater than</Text>
     </>
   );
 
@@ -187,11 +262,45 @@ const SubmitLoanScreen = ({navigation}) => {
             'Your username',
             true,
             'user-o',
+            data.isValidNames,
+            'must be greater than 4',
           )}
-          {InputText(textInputChange, 'Firstname', 'Firstname', true, 'user-o')}
-          {InputText(textInputChange, 'Lastname', 'Lastname', true, 'user-o')}
-          {InputText(textInputChange, 'email', 'Email', false, 'mail')}
-          {InputText(textInputChange, 'phone', 'Phone', false, 'phone')}
+          {InputText(
+            firstnameChange,
+            'Firstname',
+            'Firstname',
+            true,
+            'user-o',
+            data.isValidNames,
+            'Must be more than 4',
+          )}
+          {InputText(
+            lastNameChange,
+            'Lastname',
+            'Lastname',
+            true,
+            'user-o',
+            data.isValidNames,
+            'Must be more than 4',
+          )}
+          {InputText(
+            emailChange,
+            'email',
+            'Email',
+            false,
+            'mail',
+            data.isValidEmail,
+            'Must be valid email',
+          )}
+          {InputText(
+            phoneChange,
+            'phone',
+            'e.g 8134544773',
+            false,
+            'phone',
+            data.isValidPhone,
+            'Must be more 10 digit',
+          )}
 
           {PasswordInput(
             handlePasswordChange,
@@ -219,7 +328,7 @@ const SubmitLoanScreen = ({navigation}) => {
             </Text>
           </View>
           <View style={styles.button}>
-            <TouchableOpacity style={styles.signIn} onPress={() => {}}>
+            <TouchableOpacity style={styles.signIn} onPress={() => submit()}>
               <LinearGradient
                 colors={['#08d4c4', '#01ab9d']}
                 style={styles.signIn}>
@@ -262,7 +371,14 @@ const SubmitLoanScreen = ({navigation}) => {
   );
 };
 
-export default SubmitLoanScreen;
+SubmitLoanScreen.propTypes = {
+  submitLoan: PropTypes.func.isRequired,
+};
+
+export default connect(
+  null,
+  {submitLoan},
+)(SubmitLoanScreen);
 
 const styles = StyleSheet.create({
   container: {
@@ -327,5 +443,9 @@ const styles = StyleSheet.create({
   },
   color_textPrivate: {
     color: 'grey',
+  },
+  errorMessage: {
+    color: 'red',
+    fontSize: 12,
   },
 });

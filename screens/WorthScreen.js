@@ -1,5 +1,7 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet, StatusBar} from 'react-native';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   TouchableOpacity,
@@ -21,9 +23,11 @@ const Colors = {
   footerColor: '#fff',
 };
 
-const WorthScreen = ({navigation}) => {
+const WorthScreen = ({navigation, income}) => {
   const {colors} = useTheme();
-
+  console.log(income);
+  // const income = navigation.getParam('income');
+  // console.log(income);
   const theme = useTheme();
 
   const acceptLoan = () => {
@@ -71,7 +75,7 @@ const WorthScreen = ({navigation}) => {
                   color: 'white',
                 },
               ]}>
-              3000
+              {income}
             </Text>
           </View>
         </LinearGradient>
@@ -121,7 +125,18 @@ const WorthScreen = ({navigation}) => {
   );
 };
 
-export default WorthScreen;
+const mapStateToProps = state => ({
+  income: state.income,
+});
+
+WorthScreen.propTypes = {
+  income: PropTypes.string.isRequired,
+};
+
+export default connect(
+  mapStateToProps,
+  null,
+)(WorthScreen);
 
 const {height, width} = Dimensions.get('screen');
 const height_textInput = height * 0.06;

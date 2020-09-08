@@ -1,44 +1,28 @@
-import axios from 'axios';
 const request = {
-  baseUrl: 'http://ukdion-loan-app.herokuapp.com/api',
-  init(baseURL) {
-    request.baseUrl = baseURL;
-    axios.defaults.baseURL = baseURL;
-    axios.defaults.headers.common['Accept'] = 'application/json';
-    axios.interceptors.response.use(
-      response => response,
-      error => {
-        if (error.response.status === 403) {
-          console.log('unauthorized, logging out ...');
-        }
-        return Promise.reject(error.response);
-      },
-      // handle error
-    );
+  baseUrl: 'http://ukdion-loan-app.herokuapp.com/api/v1',
+  init() {
+    request.baseUrl = 'http://ukdion-loan-app.herokuapp.com/api/v1';
+    axios.defaults.baseURL = 'http://ukdion-loan-app.herokuapp.com/api/v1';
   },
   getBaseUrl() {
     return request.baseUrl;
   },
 
-  //   setHeader() {
-  //   },
-
+  removeHeader() {
+    axios.defaults.headers.common = {};
+  },
   get(resource) {
     return axios.get(resource);
   },
-
   post(resource, data) {
     return axios.post(resource, data);
   },
-
   put(resource, data) {
     return axios.put(resource, data);
   },
-
   delete(resource) {
     return axios.delete(resource);
   },
-
   /**
    * Perform a custom Axios request.
    *
@@ -53,6 +37,11 @@ const request = {
   customRequest(data) {
     return axios(data);
   },
+  //   error(msg) {
+  //     return this.$toast.success(msg, {
+  //       // override the global option
+  //       position: 'top',
+  //     });
+  //   },
 };
-
 export {request};

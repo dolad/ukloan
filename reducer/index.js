@@ -1,35 +1,41 @@
 const initialState = {
-  isLoading: false,
   isError: false,
   userDetails: [],
+  income: 0,
+  loading: false,
 };
 
-const indexReducer = (state = initialState, action) => {
+export default function(state = initialState, action) {
   switch (action.type) {
     case 'IS_LOADING':
       return {
         ...state,
-        isLoading: !isLoading,
+        loading: !loading,
       };
     case 'IS_ERROR':
       return {
         ...state,
-        isLoading: false,
+        loading: false,
         isError: !isError,
       };
     case 'REGISTER':
       return {
         ...state,
         userDetails: action.payload,
-        isLoading: false,
+        loading: false,
       };
     case 'IS_SUCCESS':
       return {
         ...state,
-        isLoading: false,
+        loading: false,
         isError: false,
       };
+    case 'IS_INCOME':
+      return {
+        ...state,
+        income: action.payload,
+      };
+    default:
+      return state;
   }
-};
-
-export default indexReducer;
+}
