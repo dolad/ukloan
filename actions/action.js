@@ -1,5 +1,6 @@
 import request from '../request/request';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const getWorth = (val, navigation) => async dispatch => {
   //   const route = 'loan/worthy';
@@ -30,10 +31,27 @@ export const submitLoan = (details, navigation) => async dispatch => {
         // dispatch({type: 'IS_LOADING'});
         dispatch({type: 'IS_INCOME', payload: res.data.amount});
         dispatch({type: 'IS_SUCCESS'});
+        navigation.navigate('PhoneVerificationScreen');
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const login = (details, navigation) => async dispatch => {
+  try {
+    await axios
+      .post('http://ukdion-loan-app.herokuapp.com/api/auth/login', details)
+      .then(res => {
+        console.log(res.data);
+        AsyncStorage.setItem('USERS', res.data.user);
+        // dispatch({type: 'IS_LOADING'});
+        dispatch({type: 'AUTH_USER', payload: res.data.user});
+        dispatch({type: 'IS_SUCCESS'});
         navigation.navigate('Income');
       });
   } catch (error) {
-    console.log(err);
+    console.log(error.errors);
   }
 };
 

@@ -13,12 +13,12 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {useTheme} from 'react-native-paper';
+import {login} from '../actions/action';
 
-import Users from '../model/users';
-
-const SignInScreen = ({navigation}) => {
+const SignInScreen = ({navigation, login}) => {
   const [data, setData] = React.useState({
     username: '',
     password: '',
@@ -85,26 +85,12 @@ const SignInScreen = ({navigation}) => {
     }
   };
 
-  const loginHandle = (userName, password) => {
-    const foundUser = Users.filter(item => {
-      return userName == item.username && password == item.password;
-    });
-
-    if (data.username.length == 0 || data.password.length == 0) {
-      Alert.alert(
-        'Wrong Input!',
-        'Username or password field cannot be empty.',
-        [{text: 'Okay'}],
-      );
-      return;
-    }
-
-    if (foundUser.length == 0) {
-      Alert.alert('Invalid User!', 'Username or password is incorrect.', [
-        {text: 'Okay'},
-      ]);
-      return;
-    }
+  const loginHandle = () => {
+    const detail = {
+      email: data.username,
+      password: data.password,
+    };
+    login(detail, navigation);
   };
 
   return (
@@ -209,7 +195,7 @@ const SignInScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.signIn}
             onPress={() => {
-              loginHandle(data.username, data.password);
+              loginHandle();
             }}>
             <LinearGradient
               colors={['#08d4c4', '#01ab9d']}
@@ -252,7 +238,14 @@ const SignInScreen = ({navigation}) => {
   );
 };
 
-export default SignInScreen;
+SignInScreen.propTypes = {
+  login: PropTypes.func.isRequired,
+};
+
+export default connect(
+  null,
+  {login},
+)(SignInScreen);
 
 const styles = StyleSheet.create({
   container: {

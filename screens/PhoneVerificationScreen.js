@@ -35,7 +35,6 @@ const PhoneVerificationScreen = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Verify Account</Text>
       <Text style={styles.info}>
         Please enter the verification code we sent to your mobile **56
       </Text>
@@ -91,6 +90,11 @@ const PhoneVerificationScreen = ({navigation}) => {
           maxLength={1}
         />
       </View>
+      <TouchableOpacity
+        style={styles.header}
+        onPress={() => navigation.navigate('SignInScreen')}>
+        <Text>Verify Account</Text>
+      </TouchableOpacity>
 
       <Text style={styles.textDidNOt}>I didn't receive a code!</Text>
       {/* <Button
@@ -112,6 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'relative',
   },
   header: {
     marginTop: 45,
@@ -122,8 +127,10 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     color: '#009387',
     fontSize: 21,
-    borderRadius: 65,
+    borderRadius: 10,
     backgroundColor: 'rgba(0, 147, 135, 0.5)',
+    position: 'absolute',
+    top: '40%',
   },
   info: {
     color: '#303030',

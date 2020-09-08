@@ -39,7 +39,20 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
   // const [isLoading, setIsLoading] = React.useState(true);
-  // const [userToken, setUserToken] = React.useState(null);
+  const [user, setUser] = React.useState(null);
+
+  useEffect(() => {
+    getAuth();
+  });
+
+  const getAuth = async () => {
+    const result = await AsyncStorage.getItem('USERS');
+    if (result !== null) {
+      setUser(result);
+    }
+  };
+
+  console.log(user);
 
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 

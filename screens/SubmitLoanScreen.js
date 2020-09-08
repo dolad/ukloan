@@ -29,7 +29,7 @@ const SubmitLoanScreen = ({navigation, submitLoan}) => {
     last_name: '',
     email: '',
     phone_number: '',
-    confirm_password: '',
+    password_confirmation: '',
     secureTextEntry: true,
     confirm_secureTextEntry: true,
     isValidNames: false,
@@ -144,7 +144,7 @@ const SubmitLoanScreen = ({navigation, submitLoan}) => {
   const handleConfirmPasswordChange = val => {
     setData({
       ...data,
-      confirm_password: val,
+      password_confirmation: val,
     });
   };
 
@@ -162,7 +162,15 @@ const SubmitLoanScreen = ({navigation, submitLoan}) => {
     });
   };
 
-  const {last_name, first_name, email, password, phone_number, username} = data;
+  const {
+    last_name,
+    first_name,
+    email,
+    password,
+    phone_number,
+    username,
+    password_confirmation,
+  } = data;
   const submit = () => {
     const details = {
       last_name,
@@ -171,6 +179,7 @@ const SubmitLoanScreen = ({navigation, submitLoan}) => {
       password,
       phone_number,
       username,
+      password_confirmation,
     };
     console.log(details);
     submitLoan(details, navigation);
@@ -244,7 +253,7 @@ const SubmitLoanScreen = ({navigation, submitLoan}) => {
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.errorMessage}>Must be greater than</Text>
+      {/* <Text style={styles.errorMessage}>Must be greater than 6</Text> */}
     </>
   );
 
@@ -295,7 +304,7 @@ const SubmitLoanScreen = ({navigation, submitLoan}) => {
           {InputText(
             phoneChange,
             'phone',
-            'e.g 8134544773',
+            'e.g 2348134544773',
             false,
             'phone',
             data.isValidPhone,

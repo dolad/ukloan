@@ -3,6 +3,8 @@ const initialState = {
   userDetails: [],
   income: 0,
   loading: false,
+  userDetails: [],
+  isAuth: false,
 };
 
 export default function(state = initialState, action) {
@@ -34,6 +36,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         income: action.payload,
+      };
+    case 'AUTH_USER':
+      return {
+        ...state,
+        isAuth: true,
+        userDetails: action.payload,
       };
     default:
       return state;
