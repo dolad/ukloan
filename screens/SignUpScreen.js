@@ -49,7 +49,9 @@ const SignInScreen = ({navigation}) => {
     });
   };
 
+
   const handleConfirmPasswordChange = val => {
+
     setData({
       ...data,
       confirm_password: val,
@@ -137,6 +139,7 @@ const SignInScreen = ({navigation}) => {
               secureTextEntry={data.confirm_secureTextEntry ? true : false}
               style={styles.textInput}
               autoCapitalize="none"
+
               onChangeText={val => handleConfirmPasswordChange(val)}
             />
             <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
@@ -162,7 +165,10 @@ const SignInScreen = ({navigation}) => {
             </Text>
           </View>
           <View style={styles.button}>
-            <TouchableOpacity style={styles.signIn} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.signIn}
+              onPress={() => navigation.navigate('PhoneVerificationScreen')}>
+
               <LinearGradient
                 colors={['#08d4c4', '#01ab9d']}
                 style={styles.signIn}>
