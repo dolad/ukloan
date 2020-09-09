@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import {DrawerContent} from '../screens/DrawerContent';
+import DrawerContent from '../screens/DrawerContent';
 import MainTabScreen from '../screens/MainTabScreen';
 import SupportScreen from '../screens/SupportScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -18,15 +18,28 @@ import WorthScreen from './WorthScreen';
 import SubmitLoanScreen from './SubmitLoanScreen';
 import Income from './Income';
 import {connect} from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const RootStack = createStackNavigator();
 const AuthStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const RootStackScreen = ({navigation, isAuth}) => {
+  const [isAuths, setIsAuths] = useState({});
+  useEffect(() => {
+    getAuth();
+  }, [isAuths]);
+
+  const getAuth = async () => {
+    const result = await AsyncStorage.getItem('USERS');
+    if (result === null) {
+      setIsAuths(null);
+    }
+  };
+
   return (
     <>
-      {isAuth !== false ? (
+      {isAuths !== null && isAuth == true ? (
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
           <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
           <Drawer.Screen name="SupportScreen" component={SupportScreen} />

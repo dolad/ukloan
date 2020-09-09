@@ -1,7 +1,8 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {
   useTheme,
   Avatar,
@@ -14,14 +15,12 @@ import {
   Switch,
 } from 'react-native-paper';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-
+import {logOut} from '../actions/action';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export function DrawerContent(props) {
+const DrawerContent = props => {
   const logout = async () => {
-    await AsyncStorage.removeItem('USERS');
-    await AsyncStorage.removeItem('first_user');
-    props.navigation.navigate('SignInScreen');
+    props.logOut(props.navigation);
   };
   return (
     <View style={{flex: 1}}>
@@ -113,16 +112,7 @@ export function DrawerContent(props) {
               }}
             />
           </Drawer.Section>
-          <Drawer.Section title="Preferences">
-            {/* <TouchableRipple onPress={() => {toggleTheme()}}>
-                            <View style={styles.preference}>
-                                <Text>Dark Theme</Text>
-                                <View pointerEvents="none">
-                                    <Switch value={paperTheme.dark}/>
-                                </View>
-                            </View>
-                        </TouchableRipple> */}
-          </Drawer.Section>
+          <Drawer.Section title="Preferences" />
         </View>
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
@@ -136,7 +126,16 @@ export function DrawerContent(props) {
       </Drawer.Section>
     </View>
   );
-}
+};
+
+DrawerContent.propTypes = {
+  logOut: PropTypes.func.isRequired,
+};
+
+export default connect(
+  null,
+  {logOut},
+)(DrawerContent);
 
 const styles = StyleSheet.create({
   drawerContent: {

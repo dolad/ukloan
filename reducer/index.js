@@ -42,6 +42,11 @@ export default function(state = initialState, action) {
         isAuth: true,
         userDetails: action.payload,
       };
+    case 'LOG_OUT':
+      return {
+        ...state,
+        isAuth: false,
+      };
     default:
       return state;
   }

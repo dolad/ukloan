@@ -90,7 +90,7 @@ const SignInScreen = ({navigation, login}) => {
       email: data.username,
       password: data.password,
     };
-    login(detail, navigation);
+    login(detail);
   };
 
   return (
