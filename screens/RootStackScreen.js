@@ -20,26 +20,47 @@ import Income from './Income';
 import {connect} from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import GuarantorScreen from './GuarantorScreen';
 const RootStack = createStackNavigator();
 const AuthStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const RootStackScreen = ({navigation, isAuth}) => {
-  const [isAuths, setIsAuths] = useState({});
-  useEffect(() => {
-    getAuth();
-  }, [isAuths]);
+  const [isFirstUser, setisFirstUser] = useState(true);
 
-  const getAuth = async () => {
-    const result = await AsyncStorage.getItem('USERS');
-    if (result === null) {
-      setIsAuths(null);
+  useEffect(() => {
+    fetchFirstTime();
+  }, []);
+
+  const fetchFirstTime = async () => {
+    const result = await AsyncStorage.getItem('first_user');
+    if (result == 'No') {
+      setisFirstUser(false);
     }
   };
 
+  const AuthStackScreen = ({navigation}) => (
+    <AuthStack.Navigator headerMode="none">
+      {isFirstUser == true && (
+        <>
+          <RootStack.Screen name="SplashScreen" component={SplashScreen} />
+          <RootStack.Screen name="SignUpScreen" component={SignUpScreen} />
+          <RootStack.Screen name="SubmitLoan" component={SubmitLoanScreen} />
+          <RootStack.Screen name="Income" component={Income} />
+          <RootStack.Screen
+            name="PhoneVerificationScreen"
+            component={PhoneVerificationScreen}
+          />
+          <RootStack.Screen name="Worth" component={WorthScreen} />
+        </>
+      )}
+      <RootStack.Screen name="SignInScreen" component={SignInScreen} />
+    </AuthStack.Navigator>
+  );
+
   return (
     <>
-      {isAuths !== null && isAuth == true ? (
+      {isAuth == true ? (
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
           <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
           <Drawer.Screen name="SupportScreen" component={SupportScreen} />
@@ -52,23 +73,6 @@ const RootStackScreen = ({navigation, isAuth}) => {
     </>
   );
 };
-
-const DrawerStack = ({navigation}) => {};
-
-const AuthStackScreen = ({navigation}) => (
-  <AuthStack.Navigator headerMode="none">
-    <RootStack.Screen name="SplashScreen" component={SplashScreen} />
-    <RootStack.Screen name="SignInScreen" component={SignInScreen} />
-    <RootStack.Screen name="SignUpScreen" component={SignUpScreen} />
-    <RootStack.Screen name="SubmitLoan" component={SubmitLoanScreen} />
-    <RootStack.Screen name="Income" component={Income} />
-    <RootStack.Screen
-      name="PhoneVerificationScreen"
-      component={PhoneVerificationScreen}
-    />
-    <RootStack.Screen name="Worth" component={WorthScreen} />
-  </AuthStack.Navigator>
-);
 
 const mapStateToProps = state => {
   console.log(state);

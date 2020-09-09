@@ -2,7 +2,7 @@ import React from 'react';
 
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-
+import GuarantorScreen from '../screens/GuarantorScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from './HomeScreen';
@@ -129,11 +129,27 @@ const HomeStackScreen = ({navigation}) => (
         ),
       }}
     />
+
     <HomeStack.Screen
       name="SignInScreen"
       component={SignInScreen}
       options={{
         title: 'Worth',
+        headerLeft: () => (
+          <Icon.Button
+            name="ios-menu"
+            size={25}
+            backgroundColor={iconBackgroundColors}
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+      }}
+    />
+    <HomeStack.Screen
+      name="GuarantorScreen"
+      component={GuarantorScreen}
+      options={{
+        title: 'GuarantorScreen',
         headerLeft: () => (
           <Icon.Button
             name="ios-menu"

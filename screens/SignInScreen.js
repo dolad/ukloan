@@ -17,6 +17,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {useTheme} from 'react-native-paper';
 import {login} from '../actions/action';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const SignInScreen = ({navigation, login}) => {
   const [data, setData] = React.useState({
@@ -114,12 +115,12 @@ const SignInScreen = ({navigation, login}) => {
               color: colors.text,
             },
           ]}>
-          Username
+          Email
         </Text>
         <View style={styles.action}>
           <FontAwesome name="user-o" color={colors.text} size={20} />
           <TextInput
-            placeholder="Your Username"
+            placeholder="Your email"
             placeholderTextColor="#666666"
             style={[
               styles.textInput,

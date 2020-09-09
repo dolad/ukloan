@@ -78,15 +78,6 @@ const HomeScreen = ({navigation, income}) => {
     isValidInput: false,
   });
 
-  useEffect(() => {
-    mapData();
-  }, []);
-
-  const mapData = () => {
-    {
-    }
-  };
-
   const textInputChange = val => {
     if (isNaN(val) === false && val.length > 1) {
       console.log(typeof val);
@@ -104,12 +95,6 @@ const HomeScreen = ({navigation, income}) => {
     }
   };
 
-  const loginHandle = amount => {
-    console.log(amount);
-    // perform some async fucntion
-    navigation.navigate('Worth');
-  };
-
   return (
     <View style={styles.container}>
       <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
@@ -118,12 +103,16 @@ const HomeScreen = ({navigation, income}) => {
           <Text style={styles.text_header}>{income}</Text>
         </View>
         <View style={styles.btns}>
-          <View style={styles.incomeContainer2}>
+          <TouchableOpacity
+            style={styles.incomeContainer2}
+            onPress={() => navigation.navigate('GuarantorScreen')}>
             <Text style={styles.text_btns}>Add Guarantor</Text>
-          </View>
-          <View style={styles.incomeContainer2}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => console.log('here')}
+            style={styles.incomeContainer2}>
             <Text style={styles.text_btns}>Request Loan</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.listView}>

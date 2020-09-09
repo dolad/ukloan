@@ -46,6 +46,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isAuth: false,
+        userDetails: [],
       };
     default:
       return state;

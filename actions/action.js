@@ -57,7 +57,6 @@ export const login = details => async dispatch => {
 export const logOut = navigation => async dispatch => {
   try {
     await AsyncStorage.removeItem('USERS');
-    await AsyncStorage.removeItem('first_user');
     dispatch({type: 'LOG_OUT'});
   } catch (error) {
     console.log(error.errors);
