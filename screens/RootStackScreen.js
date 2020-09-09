@@ -10,6 +10,7 @@ import PhoneVerificationScreen from './PhoneVerificationScreen';
 import WorthScreen from './WorthScreen';
 import SubmitLoanScreen from './SubmitLoanScreen';
 import Income from './Income';
+import GuarantorScreen from './GuarantorScreen';
 const RootStack = createStackNavigator();
 
 const RootStackScreen = ({navigation}) => (
@@ -19,6 +20,7 @@ const RootStackScreen = ({navigation}) => (
       name="PhoneVerificationScreen"
       component={PhoneVerificationScreen}
     />
+    <RootStack.Screen name="GuarantorScreen" component={GuarantorScreen} />
     <RootStack.Screen name="Worth" component={WorthScreen} />
     <RootStack.Screen name="SubmitLoan" component={SubmitLoanScreen} />
     <RootStack.Screen name="Income" component={Income} />

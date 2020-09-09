@@ -23,7 +23,7 @@ const HomeScreen = ({navigation}) => {
     isValidInput: false,
   });
 
-  const textInputChange = (val) => {
+  const textInputChange = val => {
     if (isNaN(val) === false && val.length > 1) {
       console.log(typeof val);
       setData({
@@ -40,7 +40,7 @@ const HomeScreen = ({navigation}) => {
     }
   };
 
-  const loginHandle = (amount) => {
+  const loginHandle = amount => {
     console.log(amount);
     // perform some async fucntion
     navigation.navigate('Worth');
