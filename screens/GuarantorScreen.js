@@ -32,19 +32,20 @@ const GuarantorScreen = ({navigation}) => {
       />
     );
   };
+  const saveGuarantor = () => {
+    console.log(data);
+  };
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#fff" barStyle={theme.dark ? 'light-content' : 'dark-content'} />
-      <View style={styles.header}>
-        <Text style={styles.text_header}>Guarantor Form</Text>
-        <View style={styles.sendButton}>
-          <Button
-            icon="content-save-all-outline"
-            mode="outlined"
-            onPress={() => console.log('Pressed')}>
-            Save
-          </Button>
-        </View>
+      <View style={styles.header} />
+      <View style={styles.sendButton}>
+        <Button
+          icon="content-save-all-outline"
+          mode="outlined"
+          onPress={() => saveGuarantor()}>
+          Save
+        </Button>
       </View>
       <ScrollView style={styles.guarantor}>
         <View style={styles.fieldSet}>
