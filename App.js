@@ -13,7 +13,6 @@ import {
   DefaultTheme as NavigationDefaultTheme,
   DarkTheme as NavigationDarkTheme,
 } from '@react-navigation/native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {
   Provider as PaperProvider,
@@ -23,19 +22,11 @@ import {
 
 import {Provider} from 'react-redux';
 
-import {DrawerContent} from './screens/DrawerContent';
-
-import MainTabScreen from './screens/MainTabScreen';
-import SupportScreen from './screens/SupportScreen';
-import SettingsScreen from './screens/SettingsScreen';
-import BookmarkScreen from './screens/BookmarkScreen';
-import store from './store/index';
-
 import RootStackScreen from './screens/RootStackScreen';
 
-import AsyncStorage from '@react-native-community/async-storage';
+import store from './store/index';
 
-const Drawer = createDrawerNavigator();
+import AsyncStorage from '@react-native-community/async-storage';
 
 const App = () => {
   // const [isLoading, setIsLoading] = React.useState(true);
@@ -95,18 +86,7 @@ const App = () => {
     <PaperProvider theme={theme}>
       <Provider store={store}>
         <NavigationContainer theme={theme}>
-          {user !== null ? (
-            <Drawer.Navigator
-              drawerContent={props => <DrawerContent {...props} />}>
-              <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
-              <Drawer.Screen name="SupportScreen" component={SupportScreen} />
-              <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
-              <Drawer.Screen name="BookmarkScreen" component={BookmarkScreen} />
-            </Drawer.Navigator>
-          ) : (
-            <RootStackScreen />
-          )}
-          {/*  */}
+          <RootStackScreen />
         </NavigationContainer>
       </Provider>
     </PaperProvider>

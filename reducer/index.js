@@ -3,7 +3,6 @@ const initialState = {
   userDetails: [],
   income: 0,
   loading: false,
-  userDetails: [],
   isAuth: false,
 };
 
